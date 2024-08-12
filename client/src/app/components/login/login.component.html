@@ -38,11 +38,20 @@
        </div>
      </div>
      
-    
+
+     <!-- for captcha using button also called V3 -->
+     <div class="flex gap-3 mt-3">
+        <p-button label="Captcha" type="button" class="w-full" styleClass="w-full" (click)="captcha()" />
+    </div>
+
+
          <div class="flex gap-3 mt-3">
              <p-button label="SignIn" type="submit" class="w-full" styleClass="w-full" />
          </div>
      
+         <!-- Also called V2 -->
+         <!-- <re-captcha (resolved)="captcha($event)" siteKey=""></re-captcha> -->
+
        </p-card>
      </form>
  </div>

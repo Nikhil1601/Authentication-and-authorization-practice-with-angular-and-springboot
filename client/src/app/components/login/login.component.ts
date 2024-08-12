@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
-
+import { RecaptchaModule, ReCaptchaV3Service } from 'ng-recaptcha';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,7 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CardModule,ButtonModule,InputTextModule,ReactiveFormsModule,CommonModule],
+  imports: [CardModule,ButtonModule,InputTextModule,ReactiveFormsModule,CommonModule,RecaptchaModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -19,9 +18,13 @@ export class LoginComponent {
   email:string=''
   submitted:boolean=false
   loginForm:FormGroup
+  recaptchaService=Inject(ReCaptchaV3Service)
+
   ngonInit(){
     
   }
+
+
   constructor(private fb: FormBuilder){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -33,12 +36,31 @@ export class LoginComponent {
     return this.loginForm.controls
   }
   
+  captcha(){
+    //for using through button only V3
+    this.recaptchaService.execute('login')
+      .subscribe({
+        next: (token: string) => {
+          console.log('ReCAPTCHA token:', token);
+        },
+        error: (err: any) => {
+          console.error('ReCAPTCHA error:', err);
+        }
+      });
+
+    // for using through captcha given by google V2
+    //pass token as param in function
+    // console.log(token)
+  }
+
+
   loginUser(){
     
     this.submitted = true;
     if (this.loginForm.invalid) {
       return;
     }
+    
     
   }
 }
