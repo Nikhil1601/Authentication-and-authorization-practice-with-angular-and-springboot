@@ -1,1 +1,48 @@
-<p>login works!</p>
+<div class="flex">
+    <div class="img flex-start">
+     <img class="card-img" alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+    </div>
+    <form [formGroup]="loginForm" (submit)="loginUser()">
+    <p-card header="Login" [style]="{ width: '360px' }">
+     <div class="feild">
+         <label for="email">Email</label>
+         <input
+         type="text"
+         pInputText
+         formControlName="email"
+         class="w-full"
+         name="email"
+         placeholder="Type your email"
+       />
+       <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+         <div *ngIf="f['email'].errors['required']">Email is required</div>
+         <div *ngIf="f['email'].errors['email']">Invalid email format</div>
+       </div>
+ 
+     </div>
+     
+     <div class="feild">
+         <label for="email">Password</label>
+         <input
+         type="password"
+         pInputText
+         formControlName="password"
+         class="w-full"
+         name="password"
+         placeholder="Type your password"
+       />
+       <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+         <div *ngIf="f['password'].errors['required']">Password is required</div>
+         <div *ngIf="f['password'].errors['minlength']">Password must be at least 4 characters</div>
+         <div *ngIf="f['password'].errors['maxlength']">Password must not exceed 40 characters</div>
+       </div>
+     </div>
+     
+    
+         <div class="flex gap-3 mt-3">
+             <p-button label="SignIn" type="submit" class="w-full" styleClass="w-full" />
+         </div>
+     
+       </p-card>
+     </form>
+ </div>
