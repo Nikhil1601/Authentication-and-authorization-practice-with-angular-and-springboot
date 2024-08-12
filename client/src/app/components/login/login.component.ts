@@ -35,7 +35,10 @@ export class LoginComponent {
   
   loginUser(){
     
-    console.log('Hello');
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return;
+    }
     
   }
 }
