@@ -18,14 +18,14 @@ export class LoginComponent {
   email:string=''
   submitted:boolean=false
   loginForm:FormGroup
-  recaptchaService=Inject(ReCaptchaV3Service)
+  // recaptchaService=Inject(ReCaptchaV3Service)
 
   ngonInit(){
     
   }
 
 
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder, private recaptchaService: ReCaptchaV3Service){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
