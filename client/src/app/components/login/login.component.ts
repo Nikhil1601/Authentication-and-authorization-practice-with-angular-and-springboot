@@ -18,6 +18,7 @@ export class LoginComponent {
   email:string=''
   submitted:boolean=false
   loginForm:FormGroup
+  recaptchaSubmitted:boolean=false
   // recaptchaService=Inject(ReCaptchaV3Service)
 
   ngonInit(){
@@ -42,6 +43,7 @@ export class LoginComponent {
       .subscribe({
         next: (token: string) => {
           console.log('ReCAPTCHA token:', token);
+          this.recaptchaSubmitted=true
         },
         error: (err: any) => {
           console.error('ReCAPTCHA error:', err);
@@ -57,7 +59,7 @@ export class LoginComponent {
   loginUser(){
     
     this.submitted = true;
-    if (this.loginForm.invalid) {
+    if (this.loginForm.invalid || this.recaptchaSubmitted === false) {
       return;
     }
     
